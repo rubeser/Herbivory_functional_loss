@@ -1,0 +1,28 @@
+# History files
+.Rhistory
+.Rapp.history
+
+# Session Data files
+.RData
+.RDataTmp
+
+# User-specific files
+.Rproj.user/
+
+# Listed in the R Project file
+.Ruserdata
+
+# External libraries
+# lib/
+# packrat/
+# renv/
+
+# Documentation
+# NAMESPACE
+
+# Output
+# *.pdf
+# *.png
+# *.csv
+# !outputs/ # If you want to keep placeholders, but usually outputs are ignored.
+# Since you want to keep the outputs folder structure, we can add a .gitkeep later if needed.
