@@ -1,7 +1,7 @@
 # Herbivore Functional Loss - Pleistocene to Future
 
 This project analyzes the functional trait space of large herbivores in the Basque Country and Navarra (Spain) across three temporal and management scenarios:
-1. **Last Interglacial (LIG)**: Pleistocene megafauna baseline.
+1. **Natural Counterfactual**: Pleistocene megafauna baseline.
 2. **Present**: Current community including wild and domestic species.
 3. **Abandonment**: Projected community following the hypothetical withdrawal of livestock and active management.
 
@@ -31,6 +31,6 @@ The input data `species_updated.xlsx` includes the following traits for each spe
 - Group Behaviour (`group_behaviour`)
 
 And presence/absence for each scenario:
-- `last_interglacial`
+- `natural_counterfactual`
 - `present`
 - `abandonment`
