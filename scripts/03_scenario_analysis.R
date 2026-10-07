@@ -51,14 +51,14 @@ p_all <- ggplot() +
                geom = 'polygon', alpha = 0.1, level = 0.8) +
   geom_point(data = df_master, aes(x = Dim1, y = Dim2), color = "black", size = 1.5, alpha = 0.4) +
   geom_text_repel(data = df_master, aes(x = Dim1, y = Dim2, label = spp), size = 4, max.overlaps = 15, fontface = "italic") +
-  scale_color_brewer(palette = 'Set1', labels = c("LIG", "Present", "Abandonment")) + 
-  scale_fill_brewer(palette = 'Set1', labels = c("LIG", "Present", "Abandonment")) +
+  scale_color_brewer(palette = 'Set1', labels = c("Natural Counterfactual", "Present", "Abandonment")) + 
+  scale_fill_brewer(palette = 'Set1', labels = c("Natural Counterfactual", "Present", "Abandonment")) +
   labs(title = "A) All Scenarios", 
        x = paste0('Dim 1 (', pc1, '%)'), y = paste0('Dim 2 (', pc2, '%)')) +
   theme_minimal(base_size = 16) + theme(legend.position = "bottom") + coord_cartesian(xlim = x_lims, ylim = y_lims) +
   title_theme
 
-p_lgi <- create_famd_subplot(df_long %>% filter(Group == 'last_interglacial'), 'B) LIG', 'last_interglacial')
+p_lgi <- create_famd_subplot(df_long %>% filter(Group == 'natural_counterfactual'), 'B) Natural Counterfactual', 'natural_counterfactual')
 p_pres <- create_famd_subplot(df_long %>% filter(Group == 'present'), 'C) Present', 'present')
 p_aban <- create_famd_subplot(df_long %>% filter(Group == 'abandonment'), 'D) Abandonment', 'abandonment')
 

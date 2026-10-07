@@ -14,8 +14,8 @@ mapping_fermentation <- read_excel('data/species_updated.xlsx', sheet='fermentat
 mapping_guild <- read_excel('data/species_updated.xlsx', sheet='guild') %>%
   select(Guild.w.Omnivory, feed)
 
-domestic_spp <- c("Bos taurus", "Ovis aries", "Capra hircus", "Equus caballus")
-groups_names <- c('last_interglacial', 'present', 'abandonment')
+domestic_spp <- c("Bos primigenius taurus", "Ovis orientalis aries", "Capra aegagrus hircus", "Equus ferus caballus")
+groups_names <- c('natural_counterfactual', 'present', 'abandonment')
 
 df_clean <- data %>%
   filter(!is.na(spp)) %>%
@@ -29,7 +29,7 @@ df_clean <- data %>%
     Fermentation = as.factor(fermentation_type),
     is_domestic = ifelse(spp %in% domestic_spp, 1, 0),
     Status = case_when(
-      last_interglacial == 1 & present == 0 ~ "Extinct",
+      natural_counterfactual == 1 & present == 0 ~ "Extinct",
       present == 1 & is_domestic == 1 ~ "Domestic",
       present == 1 & is_domestic == 0 ~ "Wild",
       TRUE ~ "Other"
@@ -66,7 +66,9 @@ loo_corrs <- numeric(nrow(traits_only))
 original_dim1 <- res_famd$ind$coord[, 1]
 for (i in 1:nrow(traits_only)) {
   res_loo <- FAMD(traits_only[-i, ], graph = FALSE)
-  loo_corrs[i] <- cor(original_dim1[-i], res_loo$ind$coord[, 1])
+  # FAMD dimension sign is arbitrary (SVD sign ambiguity); use the absolute
+  # correlation so a mirrored-but-equivalent axis isn't scored as unstable.
+  loo_corrs[i] <- abs(cor(original_dim1[-i], res_loo$ind$coord[, 1]))
 }
 
 p_rob1 <- ggplot(data.frame(eig = boot_eigs[, 1]), aes(x = eig)) +
@@ -80,7 +82,7 @@ p_rob2 <- ggplot(data.frame(corr = loo_corrs), aes(x = corr)) +
   labs(title = "LOO Stability (Dim 1)", x = "Correlation", y = "Frequency") + 
   theme_minimal(base_size = 14)
 
-ggsave('outputs/SM2_famd_robustness.png', p_rob1 | p_rob2, width = 12, height = 5)
+ggsave('outputs/SM_famd_robustness.png', p_rob1 | p_rob2, width = 12, height = 5)
 
 # Save objects for subsequent scripts
 ind_coords <- as.data.frame(res_famd$ind$coord[, 1:2])
